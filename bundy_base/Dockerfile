@@ -22,6 +22,8 @@ RUN apt-get -y install php5-memcached
 RUN apt-get -y install php5-memcache
 RUN apt-get -y install php5-json
 RUN apt-get -y install php5-curl
+RUN apt-get -y install tar
+RUN apt-get -y install gzip
 
 # Add appdynamics user and set permissions
 RUN groupadd -r appdynamics

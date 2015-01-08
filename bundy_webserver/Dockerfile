@@ -25,8 +25,9 @@ ADD /parameters.yml /var/www/html/demoapp/Symfony/app/config/
 RUN chown -R appdynamics.appdynamics /var/www
 
 # Install AppD Agent
-ADD /appdynamics-php-agent_3930.zip /appdynamics/
-RUN unzip -d /appdynamics /appdynamics/appdynamics-php-agent_3930.zip
+ADD /appdynamics-php-agent-x64-linux-3.9.3.0.tar.bz2 /appdynamics/
+#ADD /appdynamics-php-agent_3930.zip /appdynamics/
+#RUN unzip -d /appdynamics /appdynamics/appdynamics-php-agent_3930.zip
 RUN chmod -R 777 /appdynamics/appdynamics-php-agent
 RUN /appdynamics/appdynamics-php-agent/install.sh -i /etc/php5/mods-available --ignore-permissions 54.190.155.157 8090 "Online Retail" Commerce Commerce-Node1
 ADD /runProxy /appdynamics/appdynamics-php-agent/proxy/
