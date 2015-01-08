@@ -1,0 +1,19 @@
+127.0.0.1 localhost
+
+# The following lines are desirable for IPv6 capable hosts
+::1 ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+ff02::3 ip6-allhosts
+127.0.0.1 	www.visa.com
+127.0.0.1	www.fedex.com
+127.0.0.1 	payment.visa.com
+127.0.0.1	api.fedex.com
+127.0.0.1	static.twitter.com
+54.190.170.102	static.facebook.com
+54.190.170.102	cdn.bundyshoes.com	
+
+# Puppet Master
+10.233.154.49 ip-10-233-154-49.us-west-2.compute.internal ip-10-233-154-49 puppet

@@ -1,0 +1,5 @@
+#!/bin/sh
+rm -f /var/www/html/demoapp/Symfony/app/logs/*
+find /var/log/httpd/* -mtime +1 -exec rm {} \;
+php /var/www/html/demoapp/Symfony/app/scripts/cleanDatabase.php
+echo "cronjob has completed successfully" > /appdynamics/cronlog

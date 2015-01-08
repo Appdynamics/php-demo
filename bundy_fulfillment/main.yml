@@ -1,0 +1,17 @@
+# Update these as needed
+crm_host: bundy_db
+crm_database: CRM
+crm_user: root
+crm_password: webdev1
+
+fullfillment_host: bundy_db
+fullfillment_database: Fulfillment
+fullfillment_user: root
+fullfillment_password: webdev1
+
+cache_host: localhost
+cache_port: 11211
+
+routes:
+  __index: BundyShoes\Controller\IndexController::index
+  order: BundyShoes\Controller\OrderController::processOrder
