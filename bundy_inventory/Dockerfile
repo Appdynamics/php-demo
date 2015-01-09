@@ -1,4 +1,4 @@
-FROM bundy_base
+FROM appdynamics/bundy_base
 
 MAINTAINER Jeff Morgan (jeff.morgan@appdynamics.com)
 

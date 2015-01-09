@@ -1,4 +1,4 @@
-FROM bundy_base
+FROM appdynamics/bundy_base
 
 MAINTAINER Jeff Morgan (jeff.morgan@appdynamics.com)
 
@@ -17,8 +17,7 @@ ADD /main.yml /var/www/bundydownstream/config/
 RUN chown -R appdynamics.appdynamics /var/www
 
 # Install AppD Agent
-ADD /appdynamics-php-agent_3930.zip /appdynamics/
-RUN unzip -d /appdynamics /appdynamics/appdynamics-php-agent_3930.zip
+ADD /appdynamics-php-agent-x64-linux.tar.bz2 /appdynamics/
 RUN chmod -R 777 /appdynamics/appdynamics-php-agent
 RUN /appdynamics/appdynamics-php-agent/install.sh -i /etc/php5/mods-available --ignore-permissions 54.190.155.157 8090 "Online Retail" Fulfillment Fulfillment-Node1
 ADD /runProxy /appdynamics/appdynamics-php-agent/proxy/
