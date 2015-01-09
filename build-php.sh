@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 # Temp dir for installers
 mkdir -p .appdynamics
