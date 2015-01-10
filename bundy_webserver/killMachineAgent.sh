@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "killing MachineAgent"
+echo "Killing MachineAgent"
 
 echo `ps -ef | grep machineagent.jar | grep -v grep | awk '{print $2}'`
 

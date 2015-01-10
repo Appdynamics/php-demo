@@ -12,10 +12,6 @@ RUN apt-get -y install tomcat7-user
 RUN tomcat7-instance-create /appdynamics/demo
 RUN tomcat7-instance-create /appdynamics/slow
 
-# Add hosts file entry
-#ADD /hosts /etc/
-#RUN sudo echo "127.0.0.1 www.shoewarehouse.com" >> /etc/hosts
-
 # Setup slow config
 ADD /slow.zip /appdynamics/
 RUN unzip -o -d /appdynamics/slow/webapps/ /appdynamics/slow.zip
@@ -32,9 +28,9 @@ ADD /setenv.sh /appdynamics/demo/bin/
 RUN chmod 755 /appdynamics/demo/bin/*
 
 # Configure AppDynamics Agent
-ADD /AppServerAgent-3.9.2.1.zip /appdynamics/
+ADD /AppServerAgent.zip /appdynamics/
 RUN mkdir /appdynamics/AppServerAgent
-RUN unzip -o -d /appdynamics/AppServerAgent /appdynamics/AppServerAgent-3.9.2.1.zip
+RUN unzip -o -d /appdynamics/AppServerAgent /appdynamics/AppServerAgent.zip
 ADD /controller-info.xml /appdynamics/AppServerAgent/conf/
 
 # Add startup script

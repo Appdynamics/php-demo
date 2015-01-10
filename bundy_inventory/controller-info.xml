@@ -4,7 +4,7 @@
     <!-- This is the host name or the IP address of the AppDynamics Controller e.g. 192.168.1.22 or myhost or myhost.abc.com
     This is the same host that you use to access the AppDynamics browser based User interface.
     This can be overridden with the system property '-Dappdynamics.controller.hostName' -->
-    <controller-host>ec2-54-190-155-157.us-west-2.compute.amazonaws.com</controller-host>
+    <controller-host></controller-host>
 
     <!-- This is the http(s) port of the AppDynamics Controller , If 'controller-ssl-enabled' below is set to true, you must
     specify the HTTPS port of the Controller, otherwise specify the HTTP port. Controller gets installed at port 8090 by default.
@@ -12,7 +12,7 @@
     If you are using a saas controller, the ssl port is 443
     This is the same port that you use to access the AppDynamics browser based User interface.
     This can be overridden with the system property '-Dappdynamics.controller.port' -->
-    <controller-port>8090</controller-port>
+    <controller-port></controller-port>
 
     <!-- This specifies if the AppDynamics agent should use SSL(HTTPS) to connect to the Controller. If you set this to true,
     the controller port property above should be set to the HTTPs port of the Controller.

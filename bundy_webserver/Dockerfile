@@ -24,22 +24,15 @@ RUN chmod -R 777 /var/www/html/demoapp/Symfony/app
 ADD /parameters.yml /var/www/html/demoapp/Symfony/app/config/
 RUN chown -R appdynamics.appdynamics /var/www
 
-# Install AppD Agent
-ADD /appdynamics-php-agent-x64-linux-3.9.3.0.tar.bz2 /appdynamics/
-#ADD /appdynamics-php-agent_3930.zip /appdynamics/
-#RUN unzip -d /appdynamics /appdynamics/appdynamics-php-agent_3930.zip
+# Add bits and setup install for AppD Agent
+ADD /appdynamics-php-agent-x64-linux.tar.bz2 /appdynamics/
 RUN chmod -R 777 /appdynamics/appdynamics-php-agent
-RUN /appdynamics/appdynamics-php-agent/install.sh -i /etc/php5/mods-available --ignore-permissions 54.190.155.157 8090 "Online Retail" Commerce Commerce-Node1
-ADD /runProxy /appdynamics/appdynamics-php-agent/proxy/
-RUN chmod 777 /appdynamics/appdynamics-php-agent/proxy/runProxy
-RUN chown -R appdynamics.appdynamics /appdynamics
-RUN php5enmod appdynamics_agent
+ADD /runProxy /appdynamics/
 
 # Install Machine Agent
-ADD /MachineAgent-3.9.3.0.zip /appdynamics/
+ADD /MachineAgent.zip /appdynamics/
 RUN mkdir /appdynamics/MachineAgent
-RUN unzip -o -d /appdynamics/MachineAgent /appdynamics/MachineAgent-3.9.3.0.zip
-ADD /ma_controller-info.xml /appdynamics/MachineAgent/conf/controller-info.xml
+RUN unzip -o -d /appdynamics/MachineAgent /appdynamics/MachineAgent.zip
 ADD /startMachineAgent.sh /appdynamics/MachineAgent/
 RUN chmod 777 /appdynamics/MachineAgent/startMachineAgent.sh
 ADD /killMachineAgent.sh /appdynamics/MachineAgent/
@@ -58,6 +51,8 @@ RUN chown -R appdynamics.appdynamics /appdynamics
 # Add startup script
 ADD /startup.sh /appdynamics/
 RUN chmod 777 /appdynamics/startup.sh
+ADD /env.sh /appdynamics/
+RUN chmod 777 /appdynamics/env.sh
 RUN chown -R appdynamics.appdynamics /appdynamics
 
 ##################### INSTALLATION END #####################

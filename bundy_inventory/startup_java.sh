@@ -1,11 +1,13 @@
 #!/bin/bash
 
-# This is a starup script for the Bundy Java server
+# This is a startup script for the Bundy Java server
 
-# Tar the necessary files (didn't work in Dockerfile)
+# Add entry to hosts file
 sudo echo "127.0.0.1 www.shoewarehouse.com" >> /etc/hosts
 
 # Startup
+su - appdynamics -c 'source /appdynamics/env.sh && sed -i "s#<controller-host></controller-host>#<controller-host>${CONTROLLER}</controller-host>#g" controller-info.xml'
+su - appdynamics -c 'source /appdynamics/env.sh && sed -i "s#<controller-port></controller-port>#<controller-port>${APPD_PORT}</controller-port>#g" controller-info.xml'
 su - appdynamics -c '/appdynamics/demo/bin/startup.sh'
 su - appdynamics -c '/appdynamics/slow/bin/startup.sh'
 
