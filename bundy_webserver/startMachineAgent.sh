@@ -17,6 +17,7 @@ AGENT_OPTIONS=
 #AGENT_OPTIONS="$AGENT_OPTIONS -Dappdynamics.agent.logging.dir="
 #AGENT_OPTIONS="$AGENT_OPTIONS -Dmetric.http.listener=true | false
 #AGENT_OPTIONS="$AGENT_OPTIONS -Dmetric.http.listener.port=<port>"
-AGENT_OPTIONS="$AGENT_OPTIONS -Dappdynamics.controller.hostName=${CONTROLLER} -Dappdynamics.controller.port=${APPD_PORT} -Dappdynamics.agent.uniqueHostId=$UNIQUE_HOST_ID"
+#AGENT_OPTIONS="$AGENT_OPTIONS -Dappdynamics.controller.hostName=${CONTROLLER} -Dappdynamics.controller.port=${APPD_PORT} -Dappdynamics.agent.uniqueHostId=$UNIQUE_HOST_ID"
+AGENT_OPTIONS="$AGENT_OPTIONS -Dappdynamics.agent.uniqueHostId=$UNIQUE_HOST_ID"
 
 nohup $JAVA $AGENT_OPTIONS -jar $AGENT &

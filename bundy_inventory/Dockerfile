@@ -31,13 +31,13 @@ RUN chmod 755 /appdynamics/demo/bin/*
 ADD /AppServerAgent.zip /appdynamics/
 RUN mkdir /appdynamics/AppServerAgent
 RUN unzip -o -d /appdynamics/AppServerAgent /appdynamics/AppServerAgent.zip
-ADD /controller-info.xml /appdynamics/AppServerAgent/conf/
+ADD /controller-info.xml /appdynamics/AppServerAgent/ver4.0.0.0/conf/
 
 # Add startup script
 ADD /startup_java.sh /appdynamics/
 RUN chmod 777 /appdynamics/startup_java.sh
-
-# Make sure home dir is owned by user
+ADD /env.sh /appdynamics/
+RUN chmod 777 /appdynamics/env.sh
 RUN chown -R appdynamics.appdynamics /appdynamics
 
 ##################### INSTALLATION END #####################
