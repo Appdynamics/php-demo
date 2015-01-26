@@ -51,6 +51,7 @@ RUN chown -R appdynamics.appdynamics /appdynamics
 
 # Expose Ports
 EXPOSE 80
+EXPOSE 11211
 EXPOSE 22
 
 CMD /appdynamics/startup.sh && tail -F /var/log/syslog
