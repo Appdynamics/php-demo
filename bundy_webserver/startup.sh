@@ -29,6 +29,5 @@ su - appdynamics -c 'source /appdynamics/MachineAgent/startMachineAgent.sh'
 # Start services
 sudo cron -f &
 sudo service apache2 start
-sudo service memcached start
 
 exit 0

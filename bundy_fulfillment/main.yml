@@ -9,7 +9,7 @@ fullfillment_database: Fulfillment
 fullfillment_user: root
 fullfillment_password: webdev1
 
-cache_host: localhost
+cache_host: bundy_mem
 cache_port: 11211
 
 routes:

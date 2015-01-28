@@ -48,4 +48,4 @@ EXPOSE 8080
 EXPOSE 8081
 
 # Start it up!
-CMD /appdynamics/startup_java.sh && tail -F /var/log/syslog
+CMD /appdynamics/startup_java.sh && tail -F /var/log/dmesg

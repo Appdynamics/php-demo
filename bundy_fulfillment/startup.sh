@@ -19,6 +19,5 @@ su - appdynamics -c 'source /appdynamics/MachineAgent/startMachineAgent.sh'
 
 # Start Services
 sudo service apache2 start
-sudo service memcached start
 
 exit 0
