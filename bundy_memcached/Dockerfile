@@ -4,7 +4,7 @@ MAINTAINER Jeff Morgan (jeff.morgan@appdynamics.com)
 
 ################## BEGIN INSTALLATION ######################
 
-# Note:  Everything has been installed in appdynamics/bundy_base
+RUN sed -i '/^-l/c\-l 0.0.0.0' /etc/memcached.conf
 
 ##################### INSTALLATION END #####################
 
