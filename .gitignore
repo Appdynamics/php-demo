@@ -1,0 +1,9 @@
+bundy_webserver/appdynamics-php-agent*
+bundy_webserver/MachineAgent.zip
+bundy_webserver/bundyshoes_staging.zip
+bundy_webserver/test/*
+bundy_fulfillment/appdynamics-php-agent*
+bundy_fulfillment/MachineAgent.zip
+bundy_fulfillment/test/*
+bundy_inventory/AppServerAgent.zip
+bundy_inventory/test/*
