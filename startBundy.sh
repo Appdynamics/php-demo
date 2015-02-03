@@ -24,7 +24,7 @@ sudo docker run -d --name bundy_mem -p 11211:11211 -v /etc/localtime:/etc/localt
 
 sleep 10
 
-sudo docker run -d --name bundy_inv -e CONTROLLER=${CONTR_HOST} -e APPD_PORT=${CONTR_PORT} -v /etc/localtime:/etc/localtime:ro appdynamics/bundy_inv:latest
+sudo docker run -d --name bundy_inv -e CONTROLLER=${CONTR_HOST} -e APPD_PORT=${CONTR_PORT} --link bundy_mem:bundy_mem -v /etc/localtime:/etc/localtime:ro appdynamics/bundy_inv:latest
 
 sleep 10
 

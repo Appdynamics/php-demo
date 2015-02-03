@@ -28,16 +28,20 @@ ADD /setenv.sh /appdynamics/demo/bin/
 RUN chmod 755 /appdynamics/demo/bin/*
 
 # Configure AppDynamics Agent
+ENV CATALINA_HOME /appdynamics
 ADD /AppServerAgent.zip /appdynamics/
 RUN mkdir /appdynamics/AppServerAgent
 RUN unzip -o -d /appdynamics/AppServerAgent /appdynamics/AppServerAgent.zip
-ADD /controller-info.xml /appdynamics/AppServerAgent/ver4.0.0.0/conf/
+ADD /controller-info.xml /appdynamics/
+RUN chown -R appdynamics.appdynamics /appdynamics
 
 # Add startup script
 ADD /startup_java.sh /appdynamics/
 RUN chmod 777 /appdynamics/startup_java.sh
 ADD /env.sh /appdynamics/
 RUN chmod 777 /appdynamics/env.sh
+RUN version=`find ${CATALINA_HOME}/AppServerAgent -type d -name "ver*" | sed "s:^${CATALINA_HOME}/AppServerAgent/::"`; \
+    sed -e "s:_VERSION_STRING:$version:g" /appdynamics/env.sh > /appdynamics/env.sh.tmp && mv /appdynamics/env.sh.tmp /appdynamics/env.sh
 RUN chown -R appdynamics.appdynamics /appdynamics
 
 ##################### INSTALLATION END #####################
