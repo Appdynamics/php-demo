@@ -21,8 +21,10 @@ chmod 777 /appdynamics/appdynamics-php-agent/proxy/runProxy
 chown -R appdynamics.appdynamics /appdynamics
 php5enmod appdynamics_agent
 
+# Input EUM Key in parameters.yml
+su - appdynamics -c "source /appdynamics/env.sh && sed -i '/eum_key/c\      eum_key:           ${EUM_KEY}' /var/www/html/demoapp/Symfony/app/config/parameters.yml"
+
 # Start MachineAgent
-#su - appdynamics -c 'source /appdynamics/env.sh && /appdynamics/MachineAgent/startMachineAgent.sh'
 su - appdynamics -c "source /appdynamics/env.sh && sed -i 's/AGENT_OPTIONS -Dappdynamics.agent.uniqueHostId=/AGENT_OPTIONS -Dappdynamics.controller.hostName=${CONTROLLER} -Dappdynamics.controller.port=${APPD_PORT} -Dappdynamics.agent.uniqueHostId=/g' /appdynamics/MachineAgent/startMachineAgent.sh"
 su - appdynamics -c 'source /appdynamics/MachineAgent/startMachineAgent.sh'
 

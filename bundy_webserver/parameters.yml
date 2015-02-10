@@ -40,4 +40,7 @@ parameters:
       exception_thrown:  true
       php_error:         true
       eum_enabled:       true
-      eum_key:           EUM-AAB-AUP
+      eum_key:           DEMO 
+      cdn_host:          cdn.bundyshoes.com
+      twitter_host:      static.twitter.com
+      facebook_host:     static.facebook.com

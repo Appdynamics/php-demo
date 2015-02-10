@@ -19,8 +19,6 @@ ADD /bundyshoes.zip /appdynamics/bundyshoes.zip
 RUN unzip -o -d /var/www/html /appdynamics/bundyshoes.zip
 RUN rm -rf /var/www/html/demoapp/Symfony/app/cache/prod/*
 RUN chmod -R 777 /var/www/html/demoapp/Symfony/app
-#ADD /adrum_staging.js /var/www/html/demoapp/Symfony/web/js/adrum.js
-#RUN chmod 644 /var/www/html/demoapp/Symfony/web/js/adrum.js
 ADD /parameters.yml /var/www/html/demoapp/Symfony/app/config/
 RUN chown -R appdynamics.appdynamics /var/www
 
