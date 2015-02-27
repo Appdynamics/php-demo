@@ -9,12 +9,12 @@ EUM_KEY=
 echo "${CONTR_HOST} is the controller name and ${CONTR_PORT} is the controller port"
 
 # Pull images
-docker pull appdynamics/bundy_base:latest
-docker pull appdynamics/bundy_db:latest
-docker pull appdynamics/bundy_mem:latest
-docker pull appdynamics/bundy_inv:latest
-docker pull appdynamics/bundy_ful:latest
-docker pull appdynamics/bundy_web:latest
+#docker pull appdynamics/bundy_base:latest
+#docker pull appdynamics/bundy_db:latest
+#docker pull appdynamics/bundy_mem:latest
+#docker pull appdynamics/bundy_inv:latest
+#docker pull appdynamics/bundy_ful:latest
+#docker pull appdynamics/bundy_web:latest
 
 # Start containers 
 sudo docker run -d --name bundy_db -p 3306:3306 -v /etc/localtime:/etc/localtime:ro appdynamics/bundy_db:latest

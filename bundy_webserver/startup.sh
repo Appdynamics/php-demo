@@ -28,8 +28,11 @@ su - appdynamics -c "source /appdynamics/env.sh && sed -i '/eum_key/c\      eum_
 su - appdynamics -c "source /appdynamics/env.sh && sed -i 's/AGENT_OPTIONS -Dappdynamics.agent.uniqueHostId=/AGENT_OPTIONS -Dappdynamics.controller.hostName=${CONTROLLER} -Dappdynamics.controller.port=${APPD_PORT} -Dappdynamics.agent.uniqueHostId=/g' /appdynamics/MachineAgent/startMachineAgent.sh"
 su - appdynamics -c 'source /appdynamics/MachineAgent/startMachineAgent.sh'
 
+# Set crontab
+su - appdynamics -c 'crontab /appdynamics/cron.conf'
+
 # Start services
-sudo cron -f &
-sudo service apache2 start
+cron -f &
+source /etc/apache2/envvars && /usr/sbin/apache2 -D FOREGROUND
 
 exit 0

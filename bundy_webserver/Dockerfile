@@ -27,6 +27,12 @@ ADD /appdynamics-php-agent-x64-linux.tar.bz2 /appdynamics/
 RUN chmod -R 777 /appdynamics/appdynamics-php-agent
 ADD /runProxy /appdynamics/
 
+# Add cron
+ADD /cron.conf /appdynamics/
+ADD /bundy.cron /appdynamics/
+RUN chmod -R 777 /appdynamics/bundy.cron
+RUN chown -R appdynamics.appdynamics /appdynamics
+
 # Install Machine Agent
 ADD /MachineAgent.zip /appdynamics/
 RUN mkdir /appdynamics/MachineAgent
