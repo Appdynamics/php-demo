@@ -24,7 +24,7 @@
     examples for a business application name can be 'ACME Portal' if you are monitoring the portal application or 'ACME ECommerce' etc.
     If a business application of this name does not exist it will be created automatically.
     This can be overridden with the system property '-Dappdynamics.agent.applicationName' -->
-    <application-name>Online Retail</application-name>
+    <application-name></application-name>
 
     <!-- Specify the logical business tier this node belongs to.
     examples for a business tier can be 'ACME Frontend' or 'ACME Backend Service' etc. If your JVM / AppServer start up script already
@@ -32,7 +32,7 @@
     to the same as ${server.tier} This can be overridden with the system property '-Dappdynamics.agent.tierName'
     You may also use expressions as ${server.tier}_${some.property}.MyTier to define the tier name.
     -->
-    <tier-name>Inventory</tier-name>
+    <tier-name></tier-name>
 
     <!-- Specify a unique name for this jvm node. The name must be unique within the business application. e.g. weblogicinstance23 or
     hweb24. If your JVM / AppServer start up script already has a system property that can be used as a node name, e.g. -Dserver.name
@@ -40,7 +40,7 @@
     The value specified in this xml can be overridden with the system property '-Dappdynamics.agent.nodeName'.
     You may also use expressions as ${server.name}_${host.name}.MyNode to define the node name.
     -->
-    <node-name>InventoryNodeStaging</node-name>
+    <node-name></node-name>
 
     <!-- Refers to the runtime directory for all runtime files (logs, transaction configuration) for agent nodes using this agent
     installation. The property is optional, by default set to agent-installation-directory . If specified All Agent logs are written
