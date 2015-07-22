@@ -13,6 +13,8 @@ su - appdynamics -c "source /appdynamics/env.sh && sed -i 's#<controller-port></
 su - appdynamics -c "source /appdynamics/env.sh && sed -i 's#<application-name></application-name>#<application-name>${APP_NAME}</application-name>#g' ${CATALINA_HOME}/AppServerAgent/${VERSION_STRING}/conf/controller-info.xml"
 su - appdynamics -c "source /appdynamics/env.sh && sed -i 's#<tier-name></tier-name>#<tier-name>${INV_TIER_NAME}</tier-name>#g' ${CATALINA_HOME}/AppServerAgent/${VERSION_STRING}/conf/controller-info.xml"
 su - appdynamics -c "source /appdynamics/env.sh && sed -i 's#<node-name></node-name>#<node-name>${INV_NODE_NAME}</node-name>#g' ${CATALINA_HOME}/AppServerAgent/${VERSION_STRING}/conf/controller-info.xml"
+su - appdynamics -c "source /appdynamics/env.sh && sed -i 's#<account-name></account-name>#<account-name>customer1</account-name>#g' ${CATALINA_HOME}/AppServerAgent/${VERSION_STRING}/conf/controller-info.xml"
+su - appdynamics -c "source /appdynamics/env.sh && sed -i 's#<account-access-key></account-access-key>#<account-access-key>${CTRLR_KEY}</account-access-key>#g' ${CATALINA_HOME}/AppServerAgent/${VERSION_STRING}/conf/controller-info.xml"
 su - appdynamics -c '/appdynamics/demo/bin/startup.sh'
 su - appdynamics -c '/appdynamics/slow/bin/startup.sh'
 

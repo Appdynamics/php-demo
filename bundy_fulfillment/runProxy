@@ -218,7 +218,7 @@ javaCmdLine() {
     for param in "$@" ; do
         cmdLine[${#cmdLine[@]}]="$param"
     done
-    cmdLine[${#cmdLine[@]}]="com.appdynamics.ee.agent.proxy.bootstrap.ProxyEntryPoint"
+    cmdLine[${#cmdLine[@]}]="com.appdynamics.ee.agent.proxy.bootstrap.ProxyControlEntryPoint"
 }
 
 printCmdLine() {

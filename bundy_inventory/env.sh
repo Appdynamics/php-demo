@@ -9,7 +9,7 @@ if [ -z "${APPD_PORT}" ]; then
 fi
 
 if [ -z "${APP_NAME}" ]; then
-	export APP_NAME="Online Retail";
+	export APP_NAME="Online_Retail";
 fi
 
 if [ -z "${INV_TIER_NAME}" ]; then
