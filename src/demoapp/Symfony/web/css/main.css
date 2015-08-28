@@ -1,0 +1,72 @@
+body {
+    background-color : #fafafa;
+    font-family : 'Merriweather', serif;
+    font-weight : 400;
+    margin : 0px;
+    padding : 0px;
+}
+
+#main {
+    background-color : white;
+    -webkit-box-shadow: -11px 0px 14px 0px rgba(50, 50, 50, 0.18);
+    -moz-box-shadow:    -11px 0px 14px 0px rgba(50, 50, 50, 0.18);
+    box-shadow:         -11px 0px 14px 0px rgba(50, 50, 50, 0.18);
+    margin : auto;
+    width : 1014px;
+}
+
+#heroImage {
+    display : block;
+    float : left; 
+    margin : 14px;
+    width : 120px;
+}
+#logo {
+    color : black;
+    display : block;
+    float : left;
+    font-size : 32px;
+    font-weight : 300;
+    margin : 40px 14px;
+    text-decoration : none;
+    width : 400px;
+}
+
+#logo span {
+    color : lightslategray;
+    font-weight : 900;
+}
+
+#searchBar {
+    float : right;
+    height : 90px;
+    margin : 10px;
+    width : 400px;
+}
+
+#nav {
+    background-color : #E7E8EC;
+    clear : both;
+
+    height : 40px;
+}
+
+#nav a {
+    color : black;
+    display : block;
+    float : left;
+    height : 40px;
+    line-height : 40px;
+    margin-left : 20px;
+    padding : 0px 10px 0px 10px;
+    text-decoration : none;
+}
+
+#nav a:hover {
+    background-color : darkslategray;
+    color : white;
+}
+
+#content {
+    padding : 20px;
+}
