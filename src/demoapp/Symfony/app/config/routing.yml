@@ -1,4 +1,0 @@
-bundy_shoes:
-    resource: "@BundyShoesBundle/Resources/config/routing.php"
-    prefix:   /
-
