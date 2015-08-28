@@ -52,7 +52,6 @@ sleep 10
 if [ -e '/root/adrum.js' ]; then
         echo "Copying adrum.js to /var/www/html/demoapp/Symfony/web/js/adrum.js in bundy_web container"
         docker exec -i bundy_web bash -c 'cat > /var/www/html/demoapp/Symfony/web/js/adrum.js' < adrum.js
-        docker exec -i bundy_web bash -c 'chown appdynamics.appdynamics /var/www/html/demoapp/Symfony/web/js/adrum.js'
         docker exec -i bundy_web bash -c 'rm -rf /var/www/html/demoapp/Symfony/app/cache/prod/*'
 else
         echo "No adrum.js present"
