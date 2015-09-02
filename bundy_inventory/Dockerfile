@@ -35,6 +35,16 @@ RUN unzip -o -d /appdynamics/AppServerAgent /appdynamics/AppServerAgent.zip
 ADD /controller-info.xml /appdynamics/
 #RUN chown -R appdynamics.appdynamics /appdynamics
 
+# Install Machine Agent
+ADD /MachineAgent.zip /appdynamics/
+RUN mkdir /appdynamics/MachineAgent
+RUN unzip -o -d /appdynamics/MachineAgent /appdynamics/MachineAgent.zip
+ADD /startMachineAgent.sh /appdynamics/MachineAgent/
+RUN chmod 777 /appdynamics/MachineAgent/startMachineAgent.sh
+ADD /killMachineAgent.sh /appdynamics/MachineAgent/
+RUN chmod 777 /appdynamics/MachineAgent/killMachineAgent.sh
+#RUN chown -R appdynamics.appdynamics /appdynamics
+
 # Add startup script
 ADD /startup_java.sh /appdynamics/
 RUN chmod 777 /appdynamics/startup_java.sh
