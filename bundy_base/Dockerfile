@@ -29,10 +29,6 @@ RUN apt-get -y install gzip
 RUN groupadd -r appdynamics
 RUN useradd --create-home --gid appdynamics appdynamics
 RUN mkdir -p /appdynamics
-#RUN chown -R appdynamics:appdynamics /appdynamics
-
-# Change permissions to /var/www/
-#RUN chown -R appdynamics.appdynamics /var/www
 
 # Enable apache mod rewrite
 RUN a2enmod rewrite
