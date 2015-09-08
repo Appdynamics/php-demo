@@ -2,6 +2,9 @@
 
 # This is a script to start Bundy's MySQL server
 
+# Start ssh
+sudo /etc/init.d/ssh start
+
 # Start MySQL
 sudo service mysql start
 
