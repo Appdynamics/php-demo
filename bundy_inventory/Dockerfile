@@ -13,15 +13,17 @@ RUN tomcat7-instance-create /appdynamics/demo
 RUN tomcat7-instance-create /appdynamics/slow
 
 # Setup slow config
-ADD /slow.zip /appdynamics/
-RUN unzip -o -d /appdynamics/slow/webapps/ /appdynamics/slow.zip
+#ADD /slow.zip /appdynamics/
+#RUN unzip -o -d /appdynamics/slow/webapps/ /appdynamics/slow.zip
+ADD /src/slow /appdynamics/slow/webapps/slow
 ADD /server_slow.xml /appdynamics/slow/conf/server.xml
 ADD /startup_slow.sh /appdynamics/slow/bin/startup.sh
 RUN chmod 755 /appdynamics/slow/bin/*
 
 # Setup BundyBackend
-ADD /BundyBackend.zip /appdynamics/
-RUN unzip -o -d /appdynamics/demo/webapps/ /appdynamics/BundyBackend.zip
+#ADD /BundyBackend.zip /appdynamics/
+#RUN unzip -o -d /appdynamics/demo/webapps/ /appdynamics/BundyBackend.zip
+ADD /src/BundyBackend /appdynamics/demo/webapps/BundyBackend
 ADD /server.xml /appdynamics/demo/conf/
 ADD /startup.sh /appdynamics/demo/bin/
 ADD /setenv.sh /appdynamics/demo/bin/

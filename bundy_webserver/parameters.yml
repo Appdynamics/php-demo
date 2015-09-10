@@ -27,12 +27,12 @@ parameters:
     php_port:         80
     php_hostname:     local.bundydownstream.com
 
-    fedex_host:         www.fedex.com
-    fedex_port:        80
+    fedex_host:        www.fedex.com
+    fedex_port:        8080
     fedex_hostname:    local.bundyshoes.com
 
     visa_host:         www.visa.com
-    visa_port:         80
+    visa_port:         8080
     visa_hostname:     local.bundyshoes.com
 
     config:

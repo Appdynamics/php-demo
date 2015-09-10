@@ -11,8 +11,9 @@ RUN a2dissite 000-default.conf
 RUN a2ensite bundydownstream.conf
 
 # Install App
-ADD /bundydownstream.zip /appdynamics/bundydownstream.zip
-RUN unzip -o -d /var/www /appdynamics/bundydownstream.zip
+#ADD /bundydownstream.zip /appdynamics/bundydownstream.zip
+#RUN unzip -o -d /var/www /appdynamics/bundydownstream.zip
+ADD /src/bundydownstream /var/www/bundydownstream
 ADD /main.yml /var/www/bundydownstream/config/
 #RUN chown -R appdynamics.appdynamics /var/www
 
