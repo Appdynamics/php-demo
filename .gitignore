@@ -6,4 +6,5 @@ bundy_fulfillment/appdynamics-php-agent*
 bundy_fulfillment/MachineAgent.zip
 bundy_fulfillment/test/*
 bundy_inventory/AppServerAgent.zip
+bundy_inventory/MachineAgent.zip
 bundy_inventory/test/*
