@@ -113,9 +113,9 @@ cp .appdynamics/MachineAgent.zip bundy_inventory/
 cp .appdynamics/AppServerAgent.zip bundy_inventory/
 
 # Build PHP Demo image then tidy up
-(cd bundy_webserver; docker build -t appdynamics/bundy_web:4.0.4.2 .)
-(cd bundy_fulfillment; docker build -t appdynamics/bundy_ful:4.0.4.2 .)
-(cd bundy_inventory; docker build -t appdynamics/bundy_inv:4.0.4.2 .)
+(cd bundy_webserver; docker build -t appdynamics/bundy_web:test .)
+(cd bundy_fulfillment; docker build -t appdynamics/bundy_ful:test .)
+(cd bundy_inventory; docker build -t appdynamics/bundy_inv:test .)
 (rm -rf bundy_webserver/appdynamics-php-agent-x64-linux.tar.bz2 bundy_webserver/MachineAgent.zip bundy_fulfillment/appdynamics-php-agent-x64-linux.tar.bz2 bundy_fulfillment/MachineAgent.zip bundy_inventory/AppServerAgent.zip)
 
 # Cleanup temp dirs
