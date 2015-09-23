@@ -8,3 +8,4 @@ bundy_fulfillment/test/*
 bundy_inventory/AppServerAgent.zip
 bundy_inventory/MachineAgent.zip
 bundy_inventory/test/*
+bundy_load/node_modules

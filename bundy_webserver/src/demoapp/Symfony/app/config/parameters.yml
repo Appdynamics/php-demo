@@ -1,0 +1,43 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver:   pdo_mysql
+    database_host:     127.0.0.1
+    database_port:     ~
+    database_name:     Store
+    database_name_crm: CRM
+    database_name_fullfillment: Fullfillment
+    database_user:     root
+    database_password: webdev1
+    
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    locale: en
+    secret: ThisTokenIsNotSoSecretChangeIt
+    
+    cache_host:        localhost
+    cache_port:        11211
+    
+    java_host:         localhost
+    java_port:         80
+    java_hostname:     local.bundyshoes.com
+    
+    php_host:         localhost
+    php_port:         80
+    php_hostname:     local.bundydownstream.com
+    
+    fedex_host:        localhost
+    fedex_port:        80
+    fedex_hostname:    local.bundyshoes.com
+    
+    visa_host:         localhost
+    visa_port:         80
+    visa_hostname:     local.bundyshoes.com
+    
+    config:
+      transaction_slow:  true
+      exception_thrown:  true
+      php_error:         true
+      eum_enabled:       true
+      eum_key:           AD-AAB-AWM

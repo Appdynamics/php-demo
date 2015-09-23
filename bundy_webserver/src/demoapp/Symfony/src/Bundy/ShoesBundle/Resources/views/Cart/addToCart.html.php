@@ -1,0 +1,1 @@
+<?php $view->extend('BundyShoesBundle::layout.html.php'); ?>

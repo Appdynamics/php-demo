@@ -3,13 +3,8 @@
 # This is a starup script for the Bundy Java server
 
 # Edit hosts file
-sudo echo "127.0.0.1 www.visa.com" >> /etc/hosts
-sudo echo "127.0.0.1 www.fedex.com" >> /etc/hosts
-sudo echo "127.0.0.1 payment.visa.com" >> /etc/hosts
-sudo echo "127.0.0.1 api.fedex.com" >> /etc/hosts
-sudo echo "127.0.0.1 static.twitter.com" >> /etc/hosts
-sudo echo "54.190.170.102 static.facebook.com" >> /etc/hosts
-sudo echo "54.190.170.102 cdn.bundyshoes.com" >> /etc/hosts
+sudo echo "$BUNDY_INV_PORT_8080_TCP_ADDR www.visa.com" >> /etc/hosts
+sudo echo "$BUNDY_INV_PORT_8080_TCP_ADDR www.fedex.com" >> /etc/hosts
 
 # Set Controller variables
 source /appdynamics/env.sh

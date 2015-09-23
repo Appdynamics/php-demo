@@ -2,17 +2,18 @@
 
 # Set build version
 VERSION=4.1.4
+
 # Temp dir for installers
 mkdir -p .appdynamics
 
 # Prompt for location of Controller and EUEM Installers if called without arguments
 if  [ $# -eq 0 ]
 then   
-    read -e -p "Enter path to Agent Installer: " AGENT_INSTALL
+    read -e -p "Enter path to PHP Agent Installer: " AGENT_INSTALL
     cp ${AGENT_INSTALL} .appdynamics/appdynamics-php-agent-x64-linux.tar.bz2
-    read -e -p "Enter path to MA Installer: " MA_INSTALL
+    read -e -p "Enter path to Machine Agent Installer: " MA_INSTALL
     cp ${MA_INSTALL} .appdynamics/MachineAgent.zip
-    read -e -p "Enter path to MA Installer: " JA_INSTALL
+    read -e -p "Enter path to Java Agent Installer: " JA_INSTALL
     cp ${JA_INSTALL} .appdynamics/AppServerAgent.zip
 else
   # Download Agent, MA, and JA Installers from download.appdynamics.com
@@ -111,12 +112,15 @@ cp .appdynamics/appdynamics-php-agent-x64-linux.tar.bz2 bundy_webserver/
 cp .appdynamics/appdynamics-php-agent-x64-linux.tar.bz2 bundy_fulfillment/
 cp .appdynamics/MachineAgent.zip bundy_webserver/
 cp .appdynamics/MachineAgent.zip bundy_fulfillment/
+cp .appdynamics/MachineAgent.zip bundy_inventory/
 cp .appdynamics/AppServerAgent.zip bundy_inventory/
 
 # Build PHP Demo image then tidy up
+
 (cd bundy_webserver; docker build -t appdynamics/bundy_web:${VERSION} .)
 (cd bundy_fulfillment; docker build -t appdynamics/bundy_ful:${VERSION} .)
 (cd bundy_inventory; docker build -t appdynamics/bundy_inv:${VERSION} .)
+
 (rm -rf bundy_webserver/appdynamics-php-agent-x64-linux.tar.bz2 bundy_webserver/MachineAgent.zip bundy_fulfillment/appdynamics-php-agent-x64-linux.tar.bz2 bundy_fulfillment/MachineAgent.zip bundy_inventory/AppServerAgent.zip)
 
 # Cleanup temp dirs

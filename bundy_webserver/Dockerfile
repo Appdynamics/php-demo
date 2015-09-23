@@ -15,8 +15,9 @@ RUN a2dissite 000-default.conf
 RUN a2ensite bundyonlineshoes.conf
 
 # Install App
-ADD /bundyshoes.zip /appdynamics/bundyshoes.zip
-RUN unzip -o -d /var/www/html /appdynamics/bundyshoes.zip
+#ADD /bundyshoes.zip /appdynamics/bundyshoes.zip
+#RUN unzip -o -d /var/www/html /appdynamics/bundyshoes.zip
+ADD /src/demoapp /var/www/html/demoapp
 RUN rm -rf /var/www/html/demoapp/Symfony/app/cache/prod/*
 RUN chmod -R 777 /var/www/html/demoapp/Symfony/app
 ADD /parameters.yml /var/www/html/demoapp/Symfony/app/config/
@@ -47,8 +48,7 @@ ADD /ApacheMonitor.zip /appdynamics/MachineAgent/
 RUN unzip -o -d /appdynamics/MachineAgent/monitors /appdynamics/MachineAgent/ApacheMonitor.zip
 ADD /task.properties /appdynamics/MachineAgent/monitors/ApacheMonitor/
 RUN chmod -R 777 /appdynamics/MachineAgent/monitors/ApacheMonitor
-ADD /MemcachePHPMonitor.zip /appdynamics/MachineAgent/
-RUN unzip -o -d /appdynamics/MachineAgent/monitors /appdynamics/MachineAgent/MemcachePHPMonitor.zip
+ADD /MemcachePHPMonitor /appdynamics/MachineAgent/monitors/MemcachePHPMonitor
 RUN chmod -R 777 /appdynamics/MachineAgent/monitors/MemcachePHPMonitor
 #RUN chown -R appdynamics.appdynamics /appdynamics
 
