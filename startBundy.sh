@@ -3,21 +3,21 @@
 # This is a script to start Bundy on Docker
 
 # Set variables
-CONTR_HOST=staging.demo.appdynamics.com
-CONTR_PORT=80
-APP_NAME=Rob-Online-Retail
-COM_TIER_NAME=Commy
-COM_NODE_NAME=CommyNode
-FUL_TIER_NAME=Fully
-FUL_NODE_NAME=FullyNode
-INV_TIER_NAME=Inventory45
-INV_NODE_NAME=Inventory45Node
-CTRLR_ACCOUNT=customer1
-CTRLR_KEY=e45a7bb8-b9e8-4c42-a266-81bfbe927df0
-EUM_KEY=DEMO-AAB-AUT
-BEACON_HOST=54.244.239.48
-BEACON_PORT=9001
-VERSION=test
+CONTR_HOST=
+CONTR_PORT=
+APP_NAME=
+COM_TIER_NAME=
+COM_NODE_NAME=
+FUL_TIER_NAME=
+FUL_NODE_NAME=
+INV_TIER_NAME=
+INV_NODE_NAME=
+CTRLR_ACCOUNT=
+CTRLR_KEY=
+EUM_KEY=
+BEACON_HOST=
+BEACON_PORT=
+VERSION=
 echo "${CONTR_HOST} is the controller name and ${CONTR_PORT} is the controller port"
 
 # Pull images

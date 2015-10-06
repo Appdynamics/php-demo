@@ -12,6 +12,9 @@ var countries = require('./countries.js');
 /*******************************
  * Change Me
  *******************************/
+//need to update the username to be something more realistic...
+//need some correlated snapshots that have later browsers and have full nav timing, can we check for server side snapshot and then upgrade the browser??
+//why do we have two APM Bt's correlated to one browser snapshot, that isn't right....
 
 var debug = false;
 var beaconHost = process.env.BEACON_HOST || '54.244.239.48';
@@ -26,8 +29,9 @@ errorAgent = [
 ];
 var urls = [
     {url : appHostname + '/', drop : 0, hasError : true},
-    {url : appHostname + '/search', drop : 10},
+    {url : appHostname + '/product/search', drop : 10},
     {url : appHostname + '/product/1', drop : 20},
+    {url : appHostname + '/product/popular', drop : 5},
     {url : appHostname + '/cart/addToCart?productId=1', drop : 50},
     {url : appHostname  + '/cart/checkout', drop : 50},
 ];
@@ -281,13 +285,13 @@ var addUserData = function(beacon, currentPage, sessionData) {
 
 var getUserId = function()
 {
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var firstName = ['rob','kim','tom','candice','pedro','aliyah','maria'];
+    var lastName = ['bolton','rabuat','fedotyev','pachenco','smith'];
+    var email = ['gmail.com','yahoo.com','msn.com','live.com','aol.com'];
 
-    for( var i=0; i < 5; i++ )
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-    return text;
+    var createUserId = function() {
+        return firstName[_.random(0,(firstName.length -1))] + '.' + lastName[_.random(0,(lastName.length -1))] + '@' + email[_.random(0,(email.length -1))];
+    };
 };
 
 var addServerInfo = function(beacon, serverInfo) {

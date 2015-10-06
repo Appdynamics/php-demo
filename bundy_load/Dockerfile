@@ -13,11 +13,11 @@ RUN   \
   ln -s /opt/node/bin/* . && \
   rm -f /opt/node-v0.10.28-linux-x64.tar.gz
 
-RUN npm install -g nodemon
+RUN npm install -g forever
 
 COPY . /src
 
 RUN cd /src; npm install
 
-CMD ["node", "/src/index.js"]
+CMD ["forever", "/src/index.js"]
 

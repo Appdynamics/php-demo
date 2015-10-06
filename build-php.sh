@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set build version
-VERSION=4.1.4
+VERSION=
 
 # Temp dir for installers
 mkdir -p .appdynamics
@@ -120,6 +120,7 @@ cp .appdynamics/AppServerAgent.zip bundy_inventory/
 (cd bundy_webserver; docker build -t appdynamics/bundy_web:${VERSION} .)
 (cd bundy_fulfillment; docker build -t appdynamics/bundy_ful:${VERSION} .)
 (cd bundy_inventory; docker build -t appdynamics/bundy_inv:${VERSION} .)
+(cd bundy_load; docker build -t appdynamics/bundy_load:${VERSION} .)
 
 (rm -rf bundy_webserver/appdynamics-php-agent-x64-linux.tar.bz2 bundy_webserver/MachineAgent.zip bundy_fulfillment/appdynamics-php-agent-x64-linux.tar.bz2 bundy_fulfillment/MachineAgent.zip bundy_inventory/AppServerAgent.zip)
 
