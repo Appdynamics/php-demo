@@ -289,9 +289,7 @@ var getUserId = function()
     var lastName = ['bolton','rabuat','fedotyev','pachenco','smith'];
     var email = ['gmail.com','yahoo.com','msn.com','live.com','aol.com'];
 
-    var createUserId = function() {
-        return firstName[_.random(0,(firstName.length -1))] + '.' + lastName[_.random(0,(lastName.length -1))] + '@' + email[_.random(0,(email.length -1))];
-    };
+    return firstName[_.random(0,(firstName.length -1))] + '.' + lastName[_.random(0,(lastName.length -1))] + '@' + email[_.random(0,(email.length -1))];
 };
 
 var addServerInfo = function(beacon, serverInfo) {
