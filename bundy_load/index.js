@@ -5,6 +5,7 @@
 var request = require('request');
 var querystring = require('querystring');
 var _ = require('lodash');
+var winston = require('winston');
 var Q = require('q');
 var B = require('./beacon.js');
 var countries = require('./countries.js');
@@ -12,14 +13,13 @@ var countries = require('./countries.js');
 /*******************************
  * Change Me
  *******************************/
-//need to update the username to be something more realistic...
-//need some correlated snapshots that have later browsers and have full nav timing, can we check for server side snapshot and then upgrade the browser??
-//why do we have two APM Bt's correlated to one browser snapshot, that isn't right....
 
-var debug = false;
-var beaconHost = process.env.BEACON_HOST || '54.244.239.48';
-var beaconPort = process.env.BEACON_PORT || '9001';
-var appDKey =  process.env.RUM_KEY ||  'DEMO-AAB-AUT';
+var debugConsole = false;
+var logFileLevel = 'error'
+var logFilePath = ''; //use trailing slash if used
+var beaconHost = process.env.BEACON_HOST;
+var beaconPort = process.env.BEACON_PORT;
+var appDKey =  process.env.RUM_KEY;
 var cdnHostname = 'cdn.onlineretail.com';
 var appHostname = 'http://bundy_web';
 // user agent that triggers JS error
@@ -37,6 +37,17 @@ var urls = [
 ];
 
 /*******************************
+ * Basic error checking and configuration
+ *******************************/
+winston.add(winston.transports.File, { filename: logFilePath + 'load.log', level : logFileLevel });
+if (!debugConsole) {
+    winston.remove(winston.transports.Console);
+}
+if (!beaconHost || !beaconPort || !appDKey) {
+    winston.error('Beacon info or appDKey is missing');
+}
+
+/*******************************
  * Functions
  *******************************/
 
@@ -51,10 +62,8 @@ session = function(sessionData) {
             sequenceId : -1,
             userId : getUserId()
         }
-        if (debug) {
-            console.log("\nNew session initialized :");
-            console.log(sessionData);
-        }
+        winston.info(sessionData);
+
     } else if (sessionData.pages.length === 0) {
         return session();
     }
@@ -64,9 +73,8 @@ session = function(sessionData) {
     sessionData.pages.shift();
 
     if (_.random(1,100) <= currentPage.drop) {
-        if (debug) {
-            console.log('Drop session on page : ' + currentPage.url);
-        }
+
+        winston.info('Drop session on page : ' + currentPage.url);
         session();
         return;
     }
@@ -85,10 +93,15 @@ session = function(sessionData) {
         useCaseCheck(beacon, currentPage, sessionData);
         return sendBeacon(beacon, sessionData.browser.agent);
     }).then(function(response) {
-        console.log('all good : '+ response.statusCode);
+        if (response.statusCode !== 200) {
+            winston.error('Beacon post error : '+ response.statusCode + ' - ' + beaconHost + ':' + beaconPort);
+        } else {
+            winston.info('Beacon post success : '+ response.statusCode + ' - ' + beaconHost + ':' + beaconPort);
+        }
+
         session(sessionData);
     }).catch(function(error) {
-        console.log(error);
+        winston.error('Error generating beacon', error);
     });
 }
 
@@ -271,9 +284,9 @@ var parseHeaders = function(headers) {
 var addErrorEvent = function(beacon, currentPage, sessionData) {
     if (currentPage.hasError && errorAgent.indexOf(sessionData.browser.agent) > -1) {
         beacon.events.push(B.getErrorEvent());
-        if (errorAgent.indexOf(sessionData.browser.agent) === 0 && Date.now() > (errorSessionTimestamp + (60000 * 1))) {
+        if (errorAgent.indexOf(sessionData.browser.agent) === 0 && Date.now() > (errorSessionTimestamp + (60000 * 30))) {
             errorSessionTimestamp = Date.now();
-            sessionData.userId = 'bolton';
+            sessionData.userId = 'bolton@aol.com';
             sessionData.geo = {country : 'United States', region : 'Washington', city : 'Seattle', localIP : '7a3717be' };
         }
     }
@@ -286,8 +299,8 @@ var addUserData = function(beacon, currentPage, sessionData) {
 var getUserId = function()
 {
     var firstName = ['rob','kim','tom','candice','pedro','aliyah','maria'];
-    var lastName = ['bolton','rabuat','fedotyev','pachenco','smith'];
-    var email = ['gmail.com','yahoo.com','msn.com','live.com','aol.com'];
+    var lastName = ['welkar','rabuat','fedotyev','pachenco','smith'];
+    var email = ['gmail.com','yahoo.com','msn.com','live.com','hotmail.com'];
 
     return firstName[_.random(0,(firstName.length -1))] + '.' + lastName[_.random(0,(lastName.length -1))] + '@' + email[_.random(0,(email.length -1))];
 };
