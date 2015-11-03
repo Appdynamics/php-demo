@@ -3,6 +3,47 @@
 # Set build version
 VERSION=
 
+cleanUp() {
+  rm -rf bundy_webserver/appdynamics-php-agent-x64-linux.tar.bz2 
+  rm -rf bundy_webserver/MachineAgent.zip 
+
+  rm -rf bundy_fulfillment/appdynamics-php-agent-x64-linux.tar.bz2 
+  rm -rf bundy_fulfillment/MachineAgent.zip 
+
+  rm -rf bundy_inventory/AppServerAgent.zip
+  rm -rf bundy_inventory/MachineAgent.zip
+
+  # Cleanup temp dirs
+  rm -rf .appdynamics
+}
+trap cleanUp exit
+
+buildContainers() {
+  echo; echo "Building container: bundy_web"
+  (cd bundy_webserver; docker build -t appdynamics/bundy_web:${VERSION} .)
+
+  echo; echo "Building container: bundy_ful"
+  (cd bundy_fulfillment; docker build -t appdynamics/bundy_ful:${VERSION} .)
+
+  echo; echo "Building container: bundy_inv"
+  (cd bundy_inventory; docker build -t appdynamics/bundy_inv:${VERSION} .)
+
+  echo; echo "Building container: bundy_load"
+  (cd bundy_load; docker build -t appdynamics/bundy_load:${VERSION} .)
+}
+
+copyAgents() {
+  echo; echo "Copying agent installers"
+  cp .appdynamics/appdynamics-php-agent-x64-linux.tar.bz2 bundy_webserver/
+  cp .appdynamics/MachineAgent.zip bundy_webserver/
+
+  cp .appdynamics/appdynamics-php-agent-x64-linux.tar.bz2 bundy_fulfillment/
+  cp .appdynamics/MachineAgent.zip bundy_fulfillment/
+
+  cp .appdynamics/MachineAgent.zip bundy_inventory/
+  cp .appdynamics/AppServerAgent.zip bundy_inventory/
+}
+
 # Temp dir for installers
 mkdir -p .appdynamics
 
@@ -16,7 +57,7 @@ then
     read -e -p "Enter path to Java Agent Installer: " JA_INSTALL
     cp ${JA_INSTALL} .appdynamics/AppServerAgent.zip
 else
-  # Download Agent, MA, and JA Installers from download.appdynamics.com
+  # Download latest PHP Agent, MA, and JA Installers from download.appdynamics.com
   # Requires an AppDynamics portal login: prompt user for email/password
   if [[ $1 == *--download* ]]
   then
@@ -43,7 +84,7 @@ else
         fi
         AGENT_INSTALL=".appdynamics/appdynamics-php-agent-x64-linux.tar.bz2"
 
-        echo "Downloading MA..."
+        echo "Downloading Machine Agent..."
         wget --load-cookies cookies.txt https://download.appdynamics.com/onpremise/public/latest/MachineAgent.zip -O .appdynamics/MachineAgent.zip
         if [ $? -ne 0 ]; then
             rm cookies.txt index.html*
@@ -51,7 +92,7 @@ else
         fi
         MA_INSTALL=".appdynamics/MachineAgent.zip"
         
-	echo "Downloading JA..."
+	echo "Downloading Java Agent..."
         wget --load-cookies cookies.txt https://download.appdynamics.com/onpremise/public/latest/AppServerAgent.zip -O .appdynamics/AppServerAgent.zip
         if [ $? -ne 0 ]; then
             rm cookies.txt index.html*
@@ -67,10 +108,10 @@ else
 
   else
 
-    # Allow user to specify locations of Controller and EUEM Installers
-    while getopts "c:e:" opt; do
+    # Allow user to specify locations of PHP, Machine and Java Agent Installers
+    while getopts "p:m:j:" opt; do
       case $opt in
-        c)
+        p)
           AGENT_INSTALL=$OPTARG
           if [ ! -e ${AGENT_INSTALL} ]
           then
@@ -79,7 +120,7 @@ else
           fi
           cp ${AGENT_INSTALL} .appdynamics/appdynamics-php-agent-x64-linux.tar.bz2
           ;;
-        e)
+        m)
           MA_INSTALL=$OPTARG
           if [ ! -e ${MA_INSTALL} ]
           then
@@ -88,7 +129,7 @@ else
           fi
           cp ${MA_INSTALL} .appdynamics/MachineAgent.zip
           ;;
-        d)
+        j)
           JA_INSTALL=$OPTARG
           if [ ! -e ${JA_INSTALL} ]
           then
@@ -106,23 +147,7 @@ else
   fi
 
 fi
-          
-# Copy installation files and scripts to build base image
-cp .appdynamics/appdynamics-php-agent-x64-linux.tar.bz2 bundy_webserver/
-cp .appdynamics/appdynamics-php-agent-x64-linux.tar.bz2 bundy_fulfillment/
-cp .appdynamics/MachineAgent.zip bundy_webserver/
-cp .appdynamics/MachineAgent.zip bundy_fulfillment/
-cp .appdynamics/MachineAgent.zip bundy_inventory/
-cp .appdynamics/AppServerAgent.zip bundy_inventory/
 
-# Build PHP Demo image then tidy up
-
-(cd bundy_webserver; docker build -t appdynamics/bundy_web:${VERSION} .)
-(cd bundy_fulfillment; docker build -t appdynamics/bundy_ful:${VERSION} .)
-(cd bundy_inventory; docker build -t appdynamics/bundy_inv:${VERSION} .)
-(cd bundy_load; docker build -t appdynamics/bundy_load:${VERSION} .)
-
-(rm -rf bundy_webserver/appdynamics-php-agent-x64-linux.tar.bz2 bundy_webserver/MachineAgent.zip bundy_fulfillment/appdynamics-php-agent-x64-linux.tar.bz2 bundy_fulfillment/MachineAgent.zip bundy_inventory/AppServerAgent.zip)
-
-# Cleanup temp dirs
-rm -rf .appdynamics
+copyAgents
+buildContainers
+cleanUp
