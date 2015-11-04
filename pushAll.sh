@@ -3,7 +3,7 @@
 if [ "$#" -eq 1 ]; then
   export TAG_VERSION=$1
   echo "Pushing images with tag: ${TAG_VERSION} to dockerhub"
-  for i in $(docker images | grep "appdynamics/ecommerce" | grep $TAG_VERSION | awk {'print $1'}); do
+  for i in $(docker images | grep "appdynamics/bundy" | grep $TAG_VERSION | awk {'print $1'}); do
     echo Pushing:  $i:${TAG_VERSION}
     docker push $i:$TAG_VERSION
   done
