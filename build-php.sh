@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set build version
-VERSION=
+VERSION=latest
 
 cleanUp() {
   rm -rf bundy_webserver/appdynamics-php-agent-x64-linux.tar.bz2 
@@ -15,25 +15,33 @@ cleanUp() {
 
   # Cleanup temp dirs
   rm -rf .appdynamics
+
+  # Remove dangling images left-over from build
+  if [[ `docker images -q --filter "dangling=true"` ]]
+  then
+    echo
+    echo "Deleting intermediate containers..."
+    docker images -q --filter "dangling=true" | xargs docker rmi;
+  fi
 }
 trap cleanUp exit
 
 buildContainers() {
   echo; echo "Building container: bundy_web"
-  (cd bundy_webserver; docker build -t appdynamics/bundy_web:${VERSION} .)
+  (cd bundy_webserver; docker build -t appdynamics/bundy_web:${VERSION} .) || exit $?
 
   echo; echo "Building container: bundy_ful"
-  (cd bundy_fulfillment; docker build -t appdynamics/bundy_ful:${VERSION} .)
+  (cd bundy_fulfillment; docker build -t appdynamics/bundy_ful:${VERSION} .) || exit $?
 
   echo; echo "Building container: bundy_inv"
-  (cd bundy_inventory; docker build -t appdynamics/bundy_inv:${VERSION} .)
+  (cd bundy_inventory; docker build -t appdynamics/bundy_inv:${VERSION} .) || exit $?
 
   echo; echo "Building container: bundy_load"
-  (cd bundy_load; docker build -t appdynamics/bundy_load:${VERSION} .)
+  (cd bundy_load; docker build -t appdynamics/bundy_load:${VERSION} .) || exit $?
 }
 
 copyAgents() {
-  echo; echo "Copying agent installers"
+  echo "Copying agent installers"
   cp .appdynamics/appdynamics-php-agent-x64-linux.tar.bz2 bundy_webserver/
   cp .appdynamics/MachineAgent.zip bundy_webserver/
 
@@ -43,6 +51,18 @@ copyAgents() {
   cp .appdynamics/MachineAgent.zip bundy_inventory/
   cp .appdynamics/AppServerAgent.zip bundy_inventory/
 }
+
+# Usage information
+if [[ $1 == *--help* ]]
+then
+  echo "Specify agent locations: build-php.sh
+          -a <Path to App Server Agent>
+          -m <Path to Machine Agent>
+          -p <Path to PHP Agent>
+          [-b Build bundy_base image]"
+  echo "Prompt for agent locations: build-php.sh"
+  exit
+fi
 
 # Temp dir for installers
 mkdir -p .appdynamics
@@ -109,7 +129,7 @@ else
   else
 
     # Allow user to specify locations of PHP, Machine and Java Agent Installers
-    while getopts "p:m:j:" opt; do
+    while getopts "p:m:a:base" opt; do
       case $opt in
         p)
           AGENT_INSTALL=$OPTARG
@@ -129,7 +149,7 @@ else
           fi
           cp ${MA_INSTALL} .appdynamics/MachineAgent.zip
           ;;
-        j)
+        a)
           JA_INSTALL=$OPTARG
           if [ ! -e ${JA_INSTALL} ]
           then
@@ -137,6 +157,9 @@ else
             exit
           fi
           cp ${JA_INSTALL} .appdynamics/AppServerAgent.zip
+          ;;
+        b)
+          BUILD_BASE=true
           ;;
         \?)
           echo "Invalid option: -$OPTARG"
