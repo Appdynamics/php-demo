@@ -18,6 +18,7 @@ var debugConsole = false;
 var logFileLevel = 'error'
 var logFilePath = ''; //use trailing slash if used
 var beaconHost = process.env.BEACON_HOST;
+var beaconHostname = beaconHost.replace('https://','');
 var appDKey =  process.env.RUM_KEY;
 var cdnHostname = 'cdn.onlineretail.com';
 var appHostname = 'http://bundy_web';
@@ -127,7 +128,7 @@ var sendBeacon = function(beacon, agent) {
             'Content-Type' : 'text/plain',
             'Content-Length' : strBeacon.length,
             'Accept' : '*/*',
-            'Host' : beaconHost
+            'Host' : beaconHostname
         },
         body : strBeacon
     }
