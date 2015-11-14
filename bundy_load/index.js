@@ -18,7 +18,6 @@ var debugConsole = false;
 var logFileLevel = 'error'
 var logFilePath = ''; //use trailing slash if used
 var beaconHost = process.env.BEACON_HOST;
-var beaconPort = process.env.BEACON_PORT;
 var appDKey =  process.env.RUM_KEY;
 var cdnHostname = 'cdn.onlineretail.com';
 var appHostname = 'http://bundy_web';
@@ -43,7 +42,7 @@ winston.add(winston.transports.File, { filename: logFilePath + 'load.log', level
 if (!debugConsole) {
     winston.remove(winston.transports.Console);
 }
-if (!beaconHost || !beaconPort || !appDKey) {
+if (!beaconHost || !appDKey) {
     winston.error('Beacon info or appDKey is missing');
 }
 
@@ -94,9 +93,9 @@ session = function(sessionData) {
         return sendBeacon(beacon, sessionData.browser.agent);
     }).then(function(response) {
         if (response.statusCode !== 200) {
-            winston.error('Beacon post error : '+ response.statusCode + ' - ' + beaconHost + ':' + beaconPort);
+            winston.error('Beacon post error : '+ response.statusCode + ' - ' + beaconHost);
         } else {
-            winston.info('Beacon post success : '+ response.statusCode + ' - ' + beaconHost + ':' + beaconPort);
+            winston.info('Beacon post success : '+ response.statusCode + ' - ' + beaconHost);
         }
 
         session(sessionData);
@@ -122,13 +121,13 @@ var sendBeacon = function(beacon, agent) {
     var strBeacon = JSON.stringify(beacon);
     var deferred = Q.defer();
     var options = {
-        url : 'http://' + beaconHost + ':' + beaconPort + '/eumcollector/beacons/browser/v1/'+appDKey+'/adrum',
+        url : beaconHost + '/eumcollector/beacons/browser/v1/'+appDKey+'/adrum',
         headers : {
             'User-Agent' : agent,
             'Content-Type' : 'text/plain',
             'Content-Length' : strBeacon.length,
             'Accept' : '*/*',
-            'Host' : beaconHost + ':' + beaconPort
+            'Host' : beaconHost
         },
         body : strBeacon
     }
