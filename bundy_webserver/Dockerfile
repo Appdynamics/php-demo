@@ -15,13 +15,10 @@ RUN a2dissite 000-default.conf
 RUN a2ensite bundyonlineshoes.conf
 
 # Install App
-#ADD /bundyshoes.zip /appdynamics/bundyshoes.zip
-#RUN unzip -o -d /var/www/html /appdynamics/bundyshoes.zip
 ADD /src/demoapp /var/www/html/demoapp
 RUN rm -rf /var/www/html/demoapp/Symfony/app/cache/prod/*
 RUN chmod -R 777 /var/www/html/demoapp/Symfony/app
 ADD /parameters.yml /var/www/html/demoapp/Symfony/app/config/
-#RUN chown -R appdynamics.appdynamics /var/www
 
 # Add bits and setup install for AppD Agent
 ADD /appdynamics-php-agent-x64-linux.tar.bz2 /appdynamics/
@@ -32,7 +29,6 @@ ADD /runProxy /appdynamics/
 ADD /cron.conf /appdynamics/
 ADD /bundy.cron /appdynamics/
 RUN chmod -R 777 /appdynamics/bundy.cron
-#RUN chown -R appdynamics.appdynamics /appdynamics
 
 # Install Machine Agent
 ADD /MachineAgent.zip /appdynamics/
@@ -50,14 +46,18 @@ ADD /task.properties /appdynamics/MachineAgent/monitors/ApacheMonitor/
 RUN chmod -R 777 /appdynamics/MachineAgent/monitors/ApacheMonitor
 ADD /MemcachePHPMonitor /appdynamics/MachineAgent/monitors/MemcachePHPMonitor
 RUN chmod -R 777 /appdynamics/MachineAgent/monitors/MemcachePHPMonitor
-#RUN chown -R appdynamics.appdynamics /appdynamics
 
 # Add startup script
 ADD /startup.sh /appdynamics/
 RUN chmod 777 /appdynamics/startup.sh
 ADD /env.sh /appdynamics/
 RUN chmod 777 /appdynamics/env.sh
-#RUN chown -R appdynamics.appdynamics /appdynamics
+
+# Configure Log Analytics
+ADD configAnalytics.sh /
+RUN chmod 777 /configAnalytics.sh
+ADD bundy_webserver-error-log.job /appdynamics/MachineAgent/monitors/analytics-agent/conf/job/
+ADD bundy_webserver-access-log.job /appdynamics/MachineAgent/monitors/analytics-agent/conf/job/
 
 ##################### INSTALLATION END #####################
 

@@ -11,11 +11,8 @@ RUN a2dissite 000-default.conf
 RUN a2ensite bundydownstream.conf
 
 # Install App
-#ADD /bundydownstream.zip /appdynamics/bundydownstream.zip
-#RUN unzip -o -d /var/www /appdynamics/bundydownstream.zip
 ADD /src/bundydownstream /var/www/bundydownstream
 ADD /main.yml /var/www/bundydownstream/config/
-#RUN chown -R appdynamics.appdynamics /var/www
 
 # Install bits and setup install for AppD Agent
 ADD /appdynamics-php-agent-x64-linux.tar.bz2 /appdynamics/
@@ -39,14 +36,18 @@ RUN chmod -R 777 /appdynamics/MachineAgent/monitors/ApacheMonitor
 ADD /MemcachePHPMonitor.zip /appdynamics/MachineAgent/
 RUN unzip -o -d /appdynamics/MachineAgent/monitors /appdynamics/MachineAgent/MemcachePHPMonitor.zip
 RUN chmod -R 777 /appdynamics/MachineAgent/monitors/MemcachePHPMonitor
-#RUN chown -R appdynamics.appdynamics /appdynamics
 
 # Add startup script
 ADD /startup.sh /appdynamics/
 RUN chmod 777 /appdynamics/startup.sh
 ADD /env.sh /appdynamics/
 RUN chmod 777 /appdynamics/env.sh
-#RUN chown -R appdynamics.appdynamics /appdynamics
+
+# Configure Log Analytics
+ADD configAnalytics.sh /
+RUN chmod 777 /configAnalytics.sh
+ADD bundy_fulfillment-error-log.job /appdynamics/MachineAgent/monitors/analytics-agent/conf/job/
+ADD bundy_fulfillment-access-log.job /appdynamics/MachineAgent/monitors/analytics-agent/conf/job/
 
 ##################### INSTALLATION END #####################
 

@@ -31,3 +31,11 @@ fi
 if [ -z "${CTRLR_KEY}" ]; then
 	export CTRLR_KEY=key;
 fi
+
+if [ -z "${GLOBAL_ACCOUNT_NAME}" ]; then
+	export GLOBAL_ACCOUNT_NAME=customer1;
+fi
+
+if [ -z "${EVENT_ENDPOINT}" ]; then
+	export EVENT_ENDPOINT=ES;
+fi

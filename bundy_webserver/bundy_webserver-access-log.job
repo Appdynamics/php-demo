@@ -1,0 +1,110 @@
+#
+# Refer to the end of this file to have a look at a sample format of the
+# log file that this job is meant to process.
+#
+
+# The version of this job configuration file. This should not be changed by the user.
+version: 1
+
+# Optional property. Defaults to "false"
+#
+enabled: true
+startAtEnd: false
+
+# Mandatory property.
+#
+# On Windows, path should be provided as if on Unix environments.
+#   Ex: demo/logs
+#   Ex: C:/app/logs
+#
+file:
+    path: /var/log/apache2/
+    nameGlob: 'access.log'
+#
+# Optional property (Except "sourceType").
+#
+# These fields are in addition to the data that is already present in the
+# files being tailed. Each record read from the file will be enriched with
+# these fields.
+#
+fields:
+   sourceType: apache-httpserver-access-log
+   nodeName: _NODE_NAME
+   tierName: _TIER_NAME
+   appName: _APP_NAME
+
+# Optional property.
+#
+# Grok is a way to define and use complex, nested regular expressions in an
+# easy to read and use format.
+#
+# A Grok pattern ultimately resolves and compiles into a regular expression.
+# The advantage of using Grok is its ability to compose complex patterns from
+# simpler pattern definitions, like a "formal grammar".
+#
+# See https://grokdebug.herokuapp.com/patterns for examples.
+#
+# The application comes pre-loaded with some well known Grok patterns in
+# the form of ".grok" files. They are available under the "conf/grok" directory.
+# Custom Grok files can be added to this directory and they will be
+# available for use here when the application is restarted.
+#
+# The Grok patterns here are meant to match a part of the log "message" string.
+# If multiple Grok patterns are provided, each one will be applied to the
+# "message" string individually.
+#
+# A Grok pattern is really a regular expression with the option of referencing
+# other known Grok patterns by name. Like this "%{JAVACLASS:myClassName}".
+# This means that we are looking for a sub-string that looks like a Java Class
+# name. Once the pattern is found, the matching sub-string will be extracted
+# and stored separately as a first class field, with "myClassName" as the key.
+#
+# By default, these patterns do not match multiline strings. To look for
+# the pattern sub-string across a multiline string, please refer to:
+# http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html#DOTALL
+#
+grok:
+  patterns:
+    - "%{COMMONAPACHELOG}"
+
+# Optional property.
+#
+# If records have a timestamp that should be used as "the" eventTimestamp then
+# the format can be provided here to ensure that the string gets parsed and
+# transformed correctly to UTC time zone.
+#
+# An attempt will be made to extract the timestamp automatically, failing which
+# one will be added at the time the record is read from the file.
+#
+# UTC time zone is used throughout the system to ensure consistency of
+# timestamps across sources from different time zones. This means that all
+# timestamps should be converted to UTC time zone.
+#
+# If the format ends with a "z" or "Z" then the time zone offset is used to
+# convert to UTC time. No time zone means local time zone.
+#
+# A reference list of available patterns can be found here:
+# http://www.joda.org/joda-time/key_format.html
+#
+eventTimestamp:
+   pattern: "dd/MMM/yyyy:HH:mm:ss Z"
+
+
+# ####################################
+# ###   Start sample file format   ###
+# ####################################
+#
+# 127.0.0.1 - - [19/Sep/2014:18:54:03 +0530] "GET /examples/servlets/images/return.gif HTTP/1.1" 200 1231
+# 127.0.0.1 - - [19/Sep/2014:18:54:03 +0530] "GET /examples/servlets/images/code.gif HTTP/1.1" 304 -
+# 127.0.0.1 - - [19/Sep/2014:18:54:03 +0530] "GET /examples/servlets/servlet/HelloWorldExample HTTP/1.1" 200 359
+# 127.0.0.1 - - [19/Sep/2014:18:54:03 +0530] "GET /examples/servlets/images/code.gif HTTP/1.1" 304 -
+# 127.0.0.1 - - [19/Sep/2014:18:54:03 +0530] "GET /examples/servlets/images/return.gif HTTP/1.1" 200 1231
+# localhost - - [19/Sep/2014:18:54:07 +0530] "GET /status HTTP/1.1" 200 10236
+# 127.0.0.1 - - [19/Sep/2014:18:54:54 +0530] "GET /server-status?auto HTTP/1.1" 200 654
+# localhost - - [19/Sep/2014:18:54:54 +0530] "GET /status?mime=prop HTTP/1.1" 200 5622
+# localhost - - [19/Sep/2014:18:55:46 +0530] "GET /status HTTP/1.1" 200 10236
+# 127.0.0.1 - - [19/Sep/2014:18:55:54 +0530] "GET /server-status?auto HTTP/1.1" 200 653
+#
+# ##################################
+# ###   End sample file format   ###
+# ##################################

@@ -5,6 +5,9 @@ AGENT_HOME=/appdynamics/MachineAgent
 AGENT="$AGENT_HOME/machineagent.jar"
 UNIQUE_HOST_ID=Fulfillment-Node1
 
+echo "Configuring Machine Agent Analytics properties..."
+/configAnalytics.sh
+
 # Agent Options
 # Uncomment and make available as needed
 # -Dappdynamics.agent.applicationName   : application that the agent participates in
