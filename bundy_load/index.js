@@ -62,6 +62,7 @@ session = function(sessionData) {
             sequenceId : -1,
             userId : getUserId()
         }
+        sessionData.apacheIp = getApacheIp(sessionData);
         winston.info(sessionData);
 
     } else if (sessionData.pages.length === 0) {
@@ -79,7 +80,7 @@ session = function(sessionData) {
         return;
     }
 
-    pageRequest(currentPage.url).then(function(serverResponse) {
+    pageRequest(currentPage.url, sessionData).then(function(serverResponse) {
         return {serverInfo : parseHeaders(serverResponse.response.headers), HTMLDownloadTime : serverResponse.time};
     }).then(function(data) {
         var beacon = B.getBeacon(sessionData.browser.support);
@@ -105,16 +106,73 @@ session = function(sessionData) {
     });
 }
 
-var pageRequest = function(url) {
+var pageRequest = function(url, sessionData) {
     var startTime = Date.now();
     var deferred = Q.defer();
-    request({url : url}, function(error, response, body) {
+    var options = {
+        url : url,
+        headers : {
+            'User-Agent' : sessionData.browser.agent,
+            'Referer' : getReferer(sessionData),
+            'X-Forwarded-For' : sessionData.apacheIp
+        }
+    }
+    request(options, function(error, response, body) {
         if (error) {
             return deferred.reject({type : 'page request', err : error});
         }
         deferred.resolve({response : response, body : body, time : Date.now() - startTime});
     });
     return deferred.promise;
+}
+
+var getReferer = function(sessionData) {
+    var referers = ['https://www.google.com', 'https://www.bing.com', 'https://www.yahoo.com', 'http://en.wikipedia.org', 'http://www.amazon.com'];
+    var pages = getPages();
+    if (sessionData.sequenceId === 0 || sessionData.sequenceId > pages.length) {
+        return referers[_.random(0,(referers.length -1))];
+    } else {
+        return pages[sessionData.sequenceId - 1].url.replace(appHostname, 'https://www.onlineretail.com');
+    }
+}
+
+var getApacheIp = function(sessionData) {
+    var ips  = {
+        'United States' : '209.234.175.',
+        'United Kingdom' : '88.150.132.',
+        'France' : '62.160.45.',
+        'Canada' : '142.0.159.',
+        'Span' : '31.44.144.',
+        'Portugal' : '46.189.128.',
+        'Germany' : '95.119.255.',
+        'Italy' : '217.171.160.',
+        'Poland' : '5.226.64.',
+        'Czech Republic' : '213.168.176.',
+        'Greece' : '31.217.160.',
+        'Romania' : '194.105.31.',
+        'Ireland' : '31.200.128.',
+        'Morocco' : '197.153.2.',
+        'South Africa' : '168.253.192.',
+        'Egypt' : '41.155.128.',
+        'Mexico' : '148.205.254.',
+        'Panama' : '179.48.64.',
+        'Colombia' : '168.176.0.',
+        'Chile' : '152.139.120.',
+        'Argentina' : '167.252.4.',
+        'Peru' : '179.43.80.',
+        'Brazil' : '150.162.2.',
+        'Russian Federation' : '31.44.80.',
+        'China' : '1.4.32.',
+        'Japan' : '101.0.16.',
+        'India' : '14.102.224.',
+        'Australia' : '114.111.128.'
+    }
+
+    if (_.has(ips, sessionData.geo.country)) {
+        return ips[sessionData.geo.country] + _.random(1,255);
+    } else {
+        return '208.145.174.56';
+    }
 }
 
 var sendBeacon = function(beacon, agent) {
