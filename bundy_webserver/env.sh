@@ -20,22 +20,18 @@ if [ -z "${COM_NODE_NAME}" ]; then
 	export COM_NODE_NAME="Commerce-Node1";
 fi
 
-if [ -z "${EUM_KEY}" ]; then
-	export EUM_KEY=DEMO;
-fi
-
 if [ -z "${CTRLR_ACCOUNT}" ]; then
 	export CTRLR_ACCOUNT=customer1;
-fi
-
-if [ -z "${CTRLR_KEY}" ]; then
-	export CTRLR_KEY=key;
 fi
 
 if [ -z "${GLOBAL_ACCOUNT_NAME}" ]; then
 	export GLOBAL_ACCOUNT_NAME=customer1;
 fi
 
-if [ -z "${EVENT_ENDPOINT}" ]; then
-	export EVENT_ENDPOINT=ES;
+if [ -z "${MACHINE_PATH_1}" ]; then 
+        export MACHINE_PATH_1=Online-Retail
+fi
+
+if [ -z "${MACHINE_PATH_2}" ]; then 
+        export MACHINE_PATH_2=Commerce
 fi

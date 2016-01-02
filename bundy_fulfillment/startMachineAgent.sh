@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Set environment variables
+source /appdynamics/env.sh
+
 JAVA=/appdynamics/appdynamics-php-agent/proxy/jre/bin/java
 AGENT_HOME=/appdynamics/MachineAgent
 AGENT="$AGENT_HOME/machineagent.jar"
@@ -13,7 +16,7 @@ echo "Configuring Machine Agent Analytics properties..."
 # -Dappdynamics.agent.applicationName   : application that the agent participates in
 # -Dappdynamics.agent.logging.dir       : directory to put logs (agent "user" must have write permissions
 # -Dmetric.http.listener=true | false   : open a kill port
-# -Dmetric.http.listener.port                   : the port to send kill messages
+# -Dmetric.http.listener.port           : the port to send kill messages
 
 # Uncomment to configure Agents using controller-info.xml
 echo "Configuring Machine Agent properties: ${AGENT_HOME}/conf/controller-info.xml"
@@ -39,12 +42,14 @@ sed -i "s/<sim-enabled>false/<sim-enabled>true/g" ${AGENT_HOME}/conf/controller-
 echo " sim-enabled: true"
 sed -i "s/<unique-host-id>/<unique-host-id>${UNIQUE_HOST_ID}/g" ${AGENT_HOME}/conf/controller-info.xml
 echo " unique-host-id: ${UNIQUE_HOST_ID}"
+sed -i "s/<machine-path>/<machine-path>${MACHINE_PATH_1}|${MACHINE_PATH_2}/g" ${AGENT_HOME}/conf/controller-info.xml
+echo " machine-path: ${MACHINE_PATH_1}|${MACHINE_PATH_2}"
 
 #AGENT_OPTIONS="-Dappdynamics.sim.enabled=true"
-#AGENT_OPTIONS="$AGENT_OPTIONS -Dappdynamics.agent.applicationName=<application-name>"
 #AGENT_OPTIONS="$AGENT_OPTIONS -Dappdynamics.agent.logging.dir="
 #AGENT_OPTIONS="$AGENT_OPTIONS -Dmetric.http.listener=true | false"
 #AGENT_OPTIONS="$AGENT_OPTIONS -Dmetric.http.listener.port=<port>"
+#AGENT_OPTIONS="$AGENT_OPTIONS -Dappdynamics.agent.applicationName=${APP_NAME}"
 #AGENT_OPTIONS="$AGENT_OPTIONS -Dappdynamics.controller.hostName=${CONTROLLER} -Dappdynamics.controller.port=${APPD_PORT}"
 #AGENT_OPTIONS="$AGENT_OPTIONS -Dappdynamics.agent.uniqueHostId=$UNIQUE_HOST_ID"
 

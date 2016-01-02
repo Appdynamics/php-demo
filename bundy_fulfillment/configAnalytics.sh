@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# Set correct variables
+# Set environment variables
 source /appdynamics/env.sh
 
 MACHINE_AGENT_HOME=/appdynamics/MachineAgent
-ACCOUNT_NAME=${GLOBAL_ACCOUNT_NAME}
+ACCOUNT_NAME=${CTRLR_ACCOUNT}
 ACCESS_KEY=${CTRLR_KEY}
 NODE_NAME=${FUL_NODE_NAME}
 TIER_NAME=${FUL_TIER_NAME}
