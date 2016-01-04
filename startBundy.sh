@@ -5,15 +5,15 @@
 # Set variables
 CONTR_HOST=e2e-controller-master-a.demo.appdynamics.com
 CONTR_PORT=8090
-APP_NAME=Mark-Bundy
+APP_NAME=Bundy-Mark
 COM_TIER_NAME=Bundy-Commerce
 COM_NODE_NAME=Bundy-Commerce-Node
 FUL_TIER_NAME=Bundy-Fulfillment
 FUL_NODE_NAME=Bundy-Fulfillment-Node
 INV_TIER_NAME=Bundy-Inventory
 INV_NODE_NAME=Bundy-Inventory-Node
-CTRLR_ACCOUNT=customer1_836b5ef3-7eb7-410b-86b3-beb1eac448ca
-CTRLR_KEY=f4fdbd62-25fc-4c50-88ad-618d79c98222
+CTRLR_ACCOUNT=customer1_4d6b46de-4d52-4b39-b9cc-2ada1a137831
+CTRLR_KEY=453bc7bb-f449-4a24-9799-ee91b6709b95
 EVENT_ENDPOINT='http://52.32.212.150:9080'
 EUM_KEY=
 BEACON_HOST=
@@ -38,15 +38,15 @@ docker run -d --name bundy_mem -p 11211:11211 appdynamics/bundy_mem:latest
 
 sleep 10
 
-docker run -d --name bundy_inv -e CONTROLLER=${CONTR_HOST} -e APPD_PORT=${CONTR_PORT} -e EVENT_ENDPOINT=${EVENT_ENDPOINT} -e APP_NAME=${APP_NAME} -e INV_TIER_NAME=${INV_TIER_NAME} -e INV_NODE_NAME=${INV_NODE_NAME} -e CTRLR_ACCOUNT=${CTRLR_ACCOUNT} -e CTRLR_KEY=${CTRLR_KEY} --link bundy_mem:bundy_mem appdynamics/bundy_inv:${VERSION}
+docker run -d --name bundy_inv -h ${APP_NAME}-inv -e CONTROLLER=${CONTR_HOST} -e APPD_PORT=${CONTR_PORT} -e EVENT_ENDPOINT=${EVENT_ENDPOINT} -e APP_NAME=${APP_NAME} -e INV_TIER_NAME=${INV_TIER_NAME} -e INV_NODE_NAME=${INV_NODE_NAME} -e CTRLR_ACCOUNT=${CTRLR_ACCOUNT} -e CTRLR_KEY=${CTRLR_KEY} --link bundy_mem:bundy_mem appdynamics/bundy_inv:${VERSION}
 
 sleep 10
 
-docker run -d --name bundy_ful -e CONTROLLER=${CONTR_HOST} -e APPD_PORT=${CONTR_PORT} -e EVENT_ENDPOINT=${EVENT_ENDPOINT} -e APP_NAME=${APP_NAME} -e FUL_TIER_NAME=${FUL_TIER_NAME} -e FUL_NODE_NAME=${FUL_NODE_NAME} -e CTRLR_ACCOUNT=${CTRLR_ACCOUNT} -e CTRLR_KEY=${CTRLR_KEY} --link bundy_db:bundy_db --link bundy_mem:bundy_mem appdynamics/bundy_ful:${VERSION}
+docker run -d --name bundy_ful -h ${APP_NAME}-ful -e CONTROLLER=${CONTR_HOST} -e APPD_PORT=${CONTR_PORT} -e EVENT_ENDPOINT=${EVENT_ENDPOINT} -e APP_NAME=${APP_NAME} -e FUL_TIER_NAME=${FUL_TIER_NAME} -e FUL_NODE_NAME=${FUL_NODE_NAME} -e CTRLR_ACCOUNT=${CTRLR_ACCOUNT} -e CTRLR_KEY=${CTRLR_KEY} --link bundy_db:bundy_db --link bundy_mem:bundy_mem appdynamics/bundy_ful:${VERSION}
 
 sleep 10
 
-docker run -d --name bundy_web -v `pwd`/bundy_webserver/src/demoapp/Symfony/src:/var/www/html/demoapp/Symfony/src -e CONTROLLER=${CONTR_HOST} -e APPD_PORT=${CONTR_PORT} -e EVENT_ENDPOINT=${EVENT_ENDPOINT} -e APP_NAME=${APP_NAME} -e COM_TIER_NAME=${COM_TIER_NAME} -e COM_NODE_NAME=${COM_NODE_NAME} -e EUM_KEY=${EUM_KEY} -e CTRLR_ACCOUNT=${CTRLR_ACCOUNT} -e CTRLR_KEY=${CTRLR_KEY} -p 80:80 --link bundy_db:bundy_db --link bundy_mem:bundy_mem --link bundy_ful:bundy_ful --link bundy_inv:bundy_inv appdynamics/bundy_web:${VERSION}
+docker run -d --name bundy_web -h ${APP_NAME}-web -v `pwd`/bundy_webserver/src/demoapp/Symfony/src:/var/www/html/demoapp/Symfony/src -e CONTROLLER=${CONTR_HOST} -e APPD_PORT=${CONTR_PORT} -e EVENT_ENDPOINT=${EVENT_ENDPOINT} -e APP_NAME=${APP_NAME} -e COM_TIER_NAME=${COM_TIER_NAME} -e COM_NODE_NAME=${COM_NODE_NAME} -e EUM_KEY=${EUM_KEY} -e CTRLR_ACCOUNT=${CTRLR_ACCOUNT} -e CTRLR_KEY=${CTRLR_KEY} -p 80:80 --link bundy_db:bundy_db --link bundy_mem:bundy_mem --link bundy_ful:bundy_ful --link bundy_inv:bundy_inv appdynamics/bundy_web:${VERSION}
 
 sleep 30
 

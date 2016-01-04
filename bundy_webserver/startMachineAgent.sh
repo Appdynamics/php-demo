@@ -37,8 +37,8 @@ echo " node-name: ${WEB_NODE_NAME}"
 # Uncomment for Machine Agent config
 sed -i "s/<sim-enabled>false/<sim-enabled>true/g" ${AGENT_HOME}/conf/controller-info.xml
 echo " sim-enabled: true"
-sed -i "s/<unique-host-id>/<unique-host-id>${UNIQUE_HOST_ID}/g" ${AGENT_HOME}/conf/controller-info.xml
-echo " unique-host-id: ${UNIQUE_HOST_ID}"
+#sed -i "s/<unique-host-id>/<unique-host-id>${UNIQUE_HOST_ID}/g" ${AGENT_HOME}/conf/controller-info.xml
+#echo " unique-host-id: ${UNIQUE_HOST_ID}"
 sed -i "s/<machine-path>/<machine-path>${MACHINE_PATH_1}|${MACHINE_PATH_2}/g" ${AGENT_HOME}/conf/controller-info.xml
 echo " machine-path: ${MACHINE_PATH_1}|${MACHINE_PATH_2}"
 
