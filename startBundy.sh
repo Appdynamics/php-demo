@@ -3,18 +3,18 @@
 # This is a script to start Bundy on Docker
 
 # Set variables
-CONTR_HOST=e2e-controller-master-a.demo.appdynamics.com
-CONTR_PORT=8090
-APP_NAME=Bundy-Mark
-COM_TIER_NAME=Bundy-Commerce
-COM_NODE_NAME=Bundy-Commerce-Node
-FUL_TIER_NAME=Bundy-Fulfillment
-FUL_NODE_NAME=Bundy-Fulfillment-Node
-INV_TIER_NAME=Bundy-Inventory
-INV_NODE_NAME=Bundy-Inventory-Node
-CTRLR_ACCOUNT=customer1_4d6b46de-4d52-4b39-b9cc-2ada1a137831
-CTRLR_KEY=453bc7bb-f449-4a24-9799-ee91b6709b95
-EVENT_ENDPOINT='http://52.32.212.150:9080'
+CONTR_HOST=
+CONTR_PORT=
+APP_NAME=
+COM_TIER_NAME=
+COM_NODE_NAME=
+FUL_TIER_NAME=
+FUL_NODE_NAME=
+INV_TIER_NAME=
+INV_NODE_NAME=
+CTRLR_ACCOUNT=
+CTRLR_KEY=
+EVENT_ENDPOINT=
 EUM_KEY=
 BEACON_HOST=
 BEACON_PORT=
