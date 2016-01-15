@@ -26,6 +26,9 @@ $frontController = new \BundyShoes\Controller\FrontController($router);
 $frontController->setInjectable('dbCRM', $dbCRM);
 $frontController->setInjectable('dbFullfillment', $dbFullfillment);
 $frontController->setInjectable('cache', $cache);
+$frontController->setInjectable('c_exit', $config['c_exit']);
+$frontController->setInjectable('c_host', $config['c_host']);
+$frontController->setInjectable('c_port', $config['c_port']);
 
 try {
     $frontController->handleRequest($_REQUEST);

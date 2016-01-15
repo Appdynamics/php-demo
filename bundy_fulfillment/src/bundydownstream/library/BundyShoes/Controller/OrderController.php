@@ -9,10 +9,26 @@ class OrderController extends AbstractController {
     public $dbFullfillment;
     
     public $cache;
+
+    public $c_exit;
+
+    public $c_host;
+
+    public $c_port;
     
     public function processOrder($request)
     {
         
+		if ($this->c_exit == 'yes') {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $this->c_host . ':' . $this->c_port);
+            curl_setopt($ch, CURLOPT_HEADER, $this->c_port);
+            if (!$result = curl_exec($ch)) {
+                echo 'Curl error : ' . curl_error($ch);
+            }
+            curl_close($ch);
+        }
+
         $this->cache->get('orderNumber');
         
         $this->dbFullfillment->query("SELECT * FROM request LIMIT 1");

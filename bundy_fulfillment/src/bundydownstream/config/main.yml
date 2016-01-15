@@ -11,6 +11,10 @@ fullfillment_password: webdev1
 
 cache_host: localhost
 cache_port: 11211
+
+c_exit: no
+c_host: http://192.168.99.100
+c_port: 81
   
 routes:
   __index: BundyShoes\Controller\IndexController::index
