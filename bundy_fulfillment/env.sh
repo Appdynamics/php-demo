@@ -31,3 +31,7 @@ fi
 if [ -z "${MACHINE_PATH_2}" ]; then 
         export MACHINE_PATH_2=Fulfillment
 fi
+
+if [ -z "${C_EXIT}" ]; then 
+        export C_EXIT=no
+fi

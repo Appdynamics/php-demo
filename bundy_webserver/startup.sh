@@ -10,10 +10,10 @@ sudo echo "$BUNDY_INV_PORT_8080_TCP_ADDR www.fedex.com" >> /etc/hosts
 source /appdynamics/env.sh
 
 # Complete App Agent config
-source /appdynamics/env.sh && sed -i "s/Commerce-Node1/${COM_NODE_NAME}/g" /appdynamics/runProxy
+#source /appdynamics/env.sh && sed -i "s/Commerce-Node1/${COM_NODE_NAME}/g" /appdynamics/runProxy
 /appdynamics/appdynamics-php-agent/install.sh -i /etc/php5/mods-available -a customer1@${CTRLR_KEY} --ignore-permissions ${CONTROLLER} ${APPD_PORT} ${APP_NAME} ${COM_TIER_NAME} ${COM_NODE_NAME}
-mv /appdynamics/runProxy /appdynamics/appdynamics-php-agent/proxy/
-chmod 777 /appdynamics/appdynamics-php-agent/proxy/runProxy
+#mv /appdynamics/runProxy /appdynamics/appdynamics-php-agent/proxy/
+#chmod 777 /appdynamics/appdynamics-php-agent/proxy/runProxy
 php5enmod appdynamics_agent
 echo "agent.proxy_output = /tmp/proxyout" >> /etc/php5/apache2/conf.d/20-appdynamics_agent.ini
 

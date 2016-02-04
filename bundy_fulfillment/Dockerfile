@@ -17,7 +17,6 @@ ADD /main.yml /var/www/bundydownstream/config/
 # Install bits and setup install for AppD Agent
 ADD /appdynamics-php-agent-x64-linux.tar.bz2 /appdynamics/
 RUN chmod -R 777 /appdynamics/appdynamics-php-agent
-ADD /runProxy /appdynamics/
 
 # Install Machine Agent
 ADD /MachineAgent.zip /appdynamics/

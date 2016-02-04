@@ -23,7 +23,7 @@ ADD /parameters.yml /var/www/html/demoapp/Symfony/app/config/
 # Add bits and setup install for AppD Agent
 ADD /appdynamics-php-agent-x64-linux.tar.bz2 /appdynamics/
 RUN chmod -R 777 /appdynamics/appdynamics-php-agent
-ADD /runProxy /appdynamics/
+#ADD /runProxy /appdynamics/
 
 # Add cron
 ADD /cron.conf /appdynamics/
