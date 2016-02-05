@@ -13,7 +13,7 @@ cache_host: bundy_mem
 cache_port: 11211
 
 c_exit: no
-c_host: http://192.168.99.100
+c_host: C_HOST
 c_port: 80
   
 routes:
