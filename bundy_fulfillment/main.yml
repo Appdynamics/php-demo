@@ -5,7 +5,7 @@ crm_user: root
 crm_password: webdev1
   
 fullfillment_host: bundy_db
-fullfillment_database: Fullfillment
+fullfillment_database: Fulfillment
 fullfillment_user: root
 fullfillment_password: webdev1
 
