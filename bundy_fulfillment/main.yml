@@ -3,15 +3,19 @@ crm_host: bundy_db
 crm_database: CRM
 crm_user: root
 crm_password: webdev1
-
+  
 fullfillment_host: bundy_db
-fullfillment_database: Fulfillment
+fullfillment_database: Fullfillment
 fullfillment_user: root
 fullfillment_password: webdev1
 
 cache_host: bundy_mem
 cache_port: 11211
 
+c_exit: no
+c_host: http://192.168.99.100
+c_port: 80
+  
 routes:
   __index: BundyShoes\Controller\IndexController::index
   order: BundyShoes\Controller\OrderController::processOrder
