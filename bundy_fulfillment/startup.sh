@@ -15,6 +15,7 @@ php5enmod appdynamics_agent
 # Configure main.yml
 if [ $C_EXIT = "yes" ]; then
 	sed -i 's/c_exit: no/c_exit: yes/g' /var/www/bundydownstream/config/main.yml
+	sed -i "s/C_HOST/http:\/\/${C_HOST}/g" /var/www/bundydownstream/config/main.yml
 else
 	echo "${C_EXIT}"
 fi 

@@ -35,3 +35,7 @@ fi
 if [ -z "${C_EXIT}" ]; then 
         export C_EXIT=no
 fi
+
+if [ -z "${C_HOST}" ]; then 
+        export C_HOST=localhost
+fi
