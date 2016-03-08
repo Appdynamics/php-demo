@@ -9,3 +9,14 @@ bundy_inventory/AppServerAgent.zip
 bundy_inventory/MachineAgent.zip
 bundy_inventory/test/*
 bundy_load/node_modules
+4152/
+42/
+4202/
+4210/
+Bundy-4210.zip
+bundy_fulfillment/main.yml.bak
+bundy_fulfillment/test.sh
+bundy_fulfillment/test.yml
+bundy_webserver/appdynamics_agent_log4cxx.xml
+bundy_webserver/test
+push.sh
