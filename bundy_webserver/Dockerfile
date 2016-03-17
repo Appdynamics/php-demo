@@ -59,6 +59,9 @@ RUN chmod 777 /configAnalytics.sh
 ADD bundy_webserver-error-log.job /appdynamics/MachineAgent/monitors/analytics-agent/conf/job/
 ADD bundy_webserver-access-log.job /appdynamics/MachineAgent/monitors/analytics-agent/conf/job/
 
+# Change logging
+#ADD /appdynamics_agent_log4cxx.xml /appdynamics/
+
 ##################### INSTALLATION END #####################
 
 # Expose Ports

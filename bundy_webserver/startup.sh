@@ -28,6 +28,9 @@ source /appdynamics/MachineAgent/startMachineAgent.sh
 # Set crontab
 crontab /appdynamics/cron.conf
 
+# Add log4j.xml
+#cp /appdynamics/appdynamics_agent_log4cxx.xml /appdynamics/appdynamics-php-agent/php/conf/
+
 # Start services
 cron -f &
 source /etc/apache2/envvars && /usr/sbin/apache2 -D FOREGROUND
