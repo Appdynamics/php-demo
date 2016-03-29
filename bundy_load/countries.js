@@ -155,6 +155,5 @@ exports.getGeo = function() {
 
     ];
     var geo =  geos[_.random(0, (geos.length - 1))];
-    geo.localIP = "7a3717be"; //this is some random IP, does not match actual geo
     return geo;
 }
